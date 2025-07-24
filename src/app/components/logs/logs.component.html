@@ -1,0 +1,31 @@
+<div class="logs-wrapper">
+  <div class="logs-title">Historial de Logs</div>
+  @if (logs$ | async; as logs) { @if (logs.length > 0) {
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Acción</th>
+        <th>Recurso</th>
+        <th>Fecha</th>
+        <th>Usuario</th>
+        <th>Email</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (log of logs; track log.id) {
+      <tr>
+        <td>{{ log.id }}</td>
+        <td>{{ log.action }}</td>
+        <td>{{ log.resource }}</td>
+        <td>{{ log.createdAt | date : "short" }}</td>
+        <td>{{ log.user?.name }}</td>
+        <td>{{ log.user?.email }}</td>
+      </tr>
+      }
+    </tbody>
+  </table>
+  } @else {
+  <p>No logs found.</p>
+  } }
+</div>

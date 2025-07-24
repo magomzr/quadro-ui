@@ -14,16 +14,18 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have the 'admin-ui' title`, () => {
+  it(`should have the 'quadro-ui' title`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('admin-ui');
+    expect(app.title).toEqual('quadro-ui');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, admin-ui');
+    expect(compiled.querySelector('h1')?.textContent).toContain(
+      'Hello, quadro-ui'
+    );
   });
 });
