@@ -1,0 +1,45 @@
+<div class="settings-container">
+  @if (form) {
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="settings-form">
+    <h3>Configuración de empresa</h3>
+    <div class="form-group">
+      <label for="companyName">Nombre de la empresa</label>
+      <input id="companyName" formControlName="companyName" />
+    </div>
+    <div class="form-group">
+      <label for="companyLogoUrl">Logo URL</label>
+      <input id="companyLogoUrl" formControlName="companyLogoUrl" />
+    </div>
+    <div class="form-group">
+      <label for="currency">Moneda</label>
+      <select id="currency" formControlName="currency">
+        <option value="">Seleccionar moneda</option>
+        @for (currency of currencies; track currency.value) {
+        <option [value]="currency.value">{{ currency.name }}</option>
+        }
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="locale">Locale</label>
+      <select id="locale" formControlName="locale">
+        <option value="">Seleccionar locale</option>
+        @for (locale of locales; track locale.value) {
+        <option [value]="locale.value">{{ locale.name }}</option>
+        }
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="timezone">Zona horaria</label>
+      <input id="timezone" formControlName="timezone" />
+    </div>
+    <div class="form-group">
+      <label for="invoicePrefix">Prefijo de factura</label>
+      <input id="invoicePrefix" formControlName="invoicePrefix" />
+    </div>
+    <button type="submit" [disabled]="form.invalid || loading">Guardar</button>
+    @if (error) {
+    <div class="error-message">{{ error }}</div>
+    }
+  </form>
+  }
+</div>

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LogsService } from '../../services/logs/logs.service';
-import { Observable, tap } from 'rxjs';
+import { Observable } from 'rxjs';
 import { AsyncPipe, DatePipe } from '@angular/common';
 
 @Component({

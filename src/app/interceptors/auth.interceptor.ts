@@ -14,8 +14,19 @@ export function authInterceptor(
   next: HttpHandlerFn
 ): Observable<HttpEvent<unknown>> {
   const router = inject(Router);
+  const accessToken = localStorage.getItem('accessToken');
 
-  return next(req).pipe(
+  let modifiedReq = req;
+
+  if (accessToken) {
+    modifiedReq = req.clone({
+      setHeaders: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+  }
+
+  return next(modifiedReq).pipe(
     catchError((error) => {
       if (error instanceof HttpErrorResponse && error.status === 401) {
         router.navigate(['/login']);

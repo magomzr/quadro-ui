@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
-import { AuthService } from '../../services/auth/auth.service';
+import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { AuthService } from '../../services/auth/auth.service';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-login',
@@ -9,20 +11,22 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './login.component.scss',
 })
 export class LoginComponent {
-  constructor(private readonly authService: AuthService) {}
+  private readonly mainPage = environment.mainPage;
+  constructor(
+    private readonly authService: AuthService,
+    private readonly router: Router
+  ) {}
   email: string = '';
   password: string = '';
   loginMessage: string = '';
 
   onSubmit() {
     this.authService.login(this.email, this.password).subscribe({
-      next: (response: any) => {
-        this.loginMessage = 'Login successful!';
-        console.log('Login successful:', response);
+      next: () => {
+        this.router.navigate([this.mainPage]);
       },
       error: (error: any) => {
-        this.loginMessage = 'Login failed. Please check your credentials.';
-        console.error('Login failed:', error);
+        this.loginMessage = `Login failed. ${error.message}`;
       },
     });
   }

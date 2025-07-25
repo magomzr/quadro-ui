@@ -15,4 +15,12 @@ export const routes: Routes = [
       ),
     title: 'Login',
   },
+  {
+    path: 'settings',
+    loadComponent: () =>
+      import('./components/settings/settings.component').then(
+        (m) => m.SettingsComponent
+      ),
+    title: 'Settings',
+  },
 ];
