@@ -1,8 +1,9 @@
 <header class="main-header">
   <div class="logo">Quadro</div>
   <nav class="main-nav">
-    <a routerLink="/logs" routerLinkActive="active">Logs</a>
-    <a routerLink="/settings" routerLinkActive="active">Settings</a>
+    @for (item of navbarItems; track item.link) {
+    <a [routerLink]="item.link" routerLinkActive="active">{{ item.label }}</a>
+    }
   </nav>
 </header>
 <main class="main-content">

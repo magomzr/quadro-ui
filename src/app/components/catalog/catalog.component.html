@@ -1,0 +1,192 @@
+<div class="catalog-container">
+  <!-- Sidebar con categorías -->
+  <aside class="categories-sidebar">
+    <div class="sidebar-header">
+      <h3>Categorías</h3>
+      <button class="btn-add" (click)="openCategoryModal()">+ Nueva</button>
+    </div>
+    <div class="categories-list">
+      @for (category of categories; track category.id) {
+      <div
+        class="category-item"
+        [class.active]="selectedCategory?.id === category.id"
+      >
+        <div (click)="selectCategory(category)" class="category-content">
+          <h4>{{ category.name }}</h4>
+          <p>{{ category.description }}</p>
+        </div>
+        <button class="btn-edit" (click)="openCategoryModal(category)">
+          ✏️
+        </button>
+      </div>
+      }
+    </div>
+  </aside>
+
+  <!-- Área principal con productos -->
+  <main class="products-main">
+    @if (selectedCategory) {
+    <div class="products-header">
+      <div class="header-info">
+        <h2>{{ selectedCategory.name }}</h2>
+        <p>{{ selectedCategory.description }}</p>
+      </div>
+      <button class="btn-add" (click)="openProductModal()">
+        + Nuevo Producto
+      </button>
+    </div>
+
+    <!-- Filtros -->
+    <div class="filters">
+      <label>
+        <input
+          type="checkbox"
+          [(ngModel)]="showPublishedOnly"
+          (change)="onFilterChange()"
+        />
+        Solo publicados
+      </label>
+      <label>
+        <input
+          type="checkbox"
+          [(ngModel)]="showLowStockOnly"
+          (change)="onFilterChange()"
+        />
+        Stock bajo
+      </label>
+    </div>
+    } @if (loading) {
+    <div class="loading">Cargando...</div>
+    } @if (error) {
+    <div class="error-message">{{ error }}</div>
+    } @if (products.length > 0) {
+    <div class="products-grid">
+      @for (product of products; track product.id) {
+      <div class="product-card">
+        @if (product.imageUrl) {
+        <img
+          [src]="product.imageUrl"
+          [alt]="product.name"
+          class="product-image"
+        />
+        }
+        <div class="product-info">
+          <div class="product-header">
+            <h3>{{ product.name }}</h3>
+            <button class="btn-edit-small" (click)="openProductModal(product)">
+              ✏️
+            </button>
+          </div>
+          <p class="product-description">{{ product.description }}</p>
+          <div class="product-details">
+            <span class="product-price">${{ product.price }}</span>
+            <span
+              class="product-stock"
+              [class.low-stock]="product.stock <= product.minStock"
+            >
+              Stock: {{ product.stock }}
+            </span>
+          </div>
+          <div class="product-meta">
+            <span class="product-sku">SKU: {{ product.sku }}</span>
+            <span
+              class="product-status"
+              [class.published]="product.isPublished"
+              [class.unpublished]="!product.isPublished"
+            >
+              {{ product.isPublished ? "Publicado" : "No publicado" }}
+            </span>
+          </div>
+        </div>
+      </div>
+      }
+    </div>
+    } @else if (!loading && selectedCategory) {
+    <div class="no-products">No hay productos en esta categoría</div>
+    }
+  </main>
+</div>
+
+<!-- Modal Categoría -->
+@if (showCategoryModal) {
+<div class="modal-overlay" (click)="closeCategoryModal()">
+  <div class="modal" (click)="$event.stopPropagation()">
+    <h3>{{ editingCategory ? "Editar" : "Nueva" }} Categoría</h3>
+    <form [formGroup]="categoryForm" (ngSubmit)="saveCategoryForm()">
+      <div class="form-group">
+        <label>Nombre</label>
+        <input formControlName="name" required />
+      </div>
+      <div class="form-group">
+        <label>Descripción</label>
+        <textarea formControlName="description"></textarea>
+      </div>
+      <div class="modal-actions">
+        <button type="button" (click)="closeCategoryModal()">Cancelar</button>
+        <button type="submit" [disabled]="categoryForm.invalid">Guardar</button>
+      </div>
+    </form>
+  </div>
+</div>
+}
+
+<!-- Modal Producto -->
+@if (showProductModal) {
+<div class="modal-overlay" (click)="closeProductModal()">
+  <div class="modal" (click)="$event.stopPropagation()">
+    <h3>{{ editingProduct ? "Editar" : "Nuevo" }} Producto</h3>
+    <form [formGroup]="productForm" (ngSubmit)="saveProductForm()">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Nombre</label>
+          <input formControlName="name" required />
+        </div>
+        <div class="form-group">
+          <label>SKU</label>
+          <input formControlName="sku" required />
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Descripción</label>
+        <textarea formControlName="description"></textarea>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Precio</label>
+          <input type="number" formControlName="price" step="0.01" required />
+        </div>
+        <div class="form-group">
+          <label>Stock</label>
+          <input type="number" formControlName="stock" required />
+        </div>
+        <div class="form-group">
+          <label>Stock mínimo</label>
+          <input type="number" formControlName="minStock" required />
+        </div>
+      </div>
+      <div class="form-group">
+        <label>URL de imagen</label>
+        <input formControlName="imageUrl" />
+      </div>
+      <div class="form-group">
+        <label>Categoría</label>
+        <select formControlName="categoryId" required>
+          @for (category of categories; track category.id) {
+          <option [value]="category.id">{{ category.name }}</option>
+          }
+        </select>
+      </div>
+      <div class="form-group">
+        <label>
+          <input type="checkbox" formControlName="isPublished" />
+          Publicado
+        </label>
+      </div>
+      <div class="modal-actions">
+        <button type="button" (click)="closeProductModal()">Cancelar</button>
+        <button type="submit" [disabled]="productForm.invalid">Guardar</button>
+      </div>
+    </form>
+  </div>
+</div>
+}
