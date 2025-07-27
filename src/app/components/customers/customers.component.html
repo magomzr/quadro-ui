@@ -1,0 +1,106 @@
+<div class="customers-container">
+  <div class="customers-header">
+    <h2>Gestión de Clientes</h2>
+    <div class="customers-stats">
+      <span class="stat">Total: {{ totalItems }} clientes</span>
+    </div>
+  </div>
+
+  <!-- Búsqueda -->
+  <div class="search-section">
+    <div class="search-group">
+      <input
+        type="text"
+        placeholder="Buscar por nombre, email o teléfono..."
+        [(ngModel)]="searchTerm"
+        (input)="onSearchChange()"
+        class="search-input"
+      />
+      @if (searchTerm) {
+      <button class="clear-search" (click)="clearSearch()">✕</button>
+      }
+    </div>
+  </div>
+
+  @if (loading) {
+  <div class="loading">Cargando clientes...</div>
+  } @if (error) {
+  <div class="error-message">{{ error }}</div>
+  } @if (customers.length > 0) {
+  <!-- Grid de clientes -->
+  <div class="customers-grid">
+    @for (customer of customers; track customer.id) {
+    <div class="customer-card">
+      <div class="customer-header">
+        <div class="customer-avatar">
+          {{ customer.name.charAt(0).toUpperCase() }}
+        </div>
+        <div class="customer-main-info">
+          <h3 class="customer-name">{{ customer.name }}</h3>
+          <p class="customer-email">{{ customer.email }}</p>
+        </div>
+      </div>
+
+      <div class="customer-details">
+        <div class="detail-item">
+          <span class="detail-label">Teléfono:</span>
+          <span class="detail-value">{{ customer.phone }}</span>
+        </div>
+
+        <div class="detail-item">
+          <span class="detail-label">Dirección:</span>
+          <span class="detail-value">{{ customer.address }}</span>
+        </div>
+
+        <div class="detail-item">
+          <span class="detail-label">Registro:</span>
+          <span class="detail-value">{{ formatDate(customer.createdAt) }}</span>
+        </div>
+
+        @if (customer.updatedAt !== customer.createdAt) {
+        <div class="detail-item">
+          <span class="detail-label">Actualizado:</span>
+          <span class="detail-value">{{ formatDate(customer.updatedAt) }}</span>
+        </div>
+        }
+      </div>
+      <div class="customer-id">ID: {{ customer.id }}</div>
+    </div>
+    }
+  </div>
+
+  <!-- Paginación -->
+  <div class="pagination">
+    <button
+      [disabled]="currentPage === 1"
+      (click)="changePage(currentPage - 1)"
+      class="pagination-btn"
+    >
+      ← Anterior
+    </button>
+
+    <span class="page-info">
+      Página {{ currentPage }} de {{ totalPages }}
+    </span>
+
+    <button
+      [disabled]="currentPage === totalPages"
+      (click)="changePage(currentPage + 1)"
+      class="pagination-btn"
+    >
+      Siguiente →
+    </button>
+  </div>
+  } @else if (!loading) {
+  <div class="no-customers">
+    @if (searchTerm) {
+    <p>No se encontraron clientes con el término "{{ searchTerm }}"</p>
+    <button class="clear-search-btn" (click)="clearSearch()">
+      Limpiar búsqueda
+    </button>
+    } @else {
+    <p>No hay clientes registrados</p>
+    }
+  </div>
+  }
+</div>

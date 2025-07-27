@@ -39,4 +39,12 @@ export const routes: Routes = [
       ),
     title: 'Orders',
   },
+  {
+    path: 'customers',
+    loadComponent: () =>
+      import('./components/customers/customers.component').then(
+        (m) => m.CustomersComponent
+      ),
+    title: 'Customers',
+  },
 ];

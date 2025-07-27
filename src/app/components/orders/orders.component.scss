@@ -99,18 +99,6 @@
   color: #666;
 }
 
-.customer-info {
-  .customer-name {
-    font-weight: 500;
-    color: #222;
-  }
-
-  .customer-email {
-    font-size: 0.85rem;
-    color: #666;
-  }
-}
-
 .status-badge {
   padding: 0.25rem 0.75rem;
   border-radius: 20px;
@@ -224,4 +212,186 @@
   color: #d32f2f;
   background: #ffebee;
   border-radius: 8px;
+}
+
+// ...existing styles...
+
+.customer-info {
+  .customer-name {
+    font-weight: 500;
+    color: #222;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .customer-email {
+    font-size: 0.85rem;
+    color: #666;
+  }
+}
+
+.customer-link {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 0.9rem;
+  padding: 0.2rem;
+  border-radius: 4px;
+  transition: background 0.2s;
+
+  &:hover {
+    background: #f0f0f0;
+  }
+}
+
+// Modal styles
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.customer-modal {
+  background: #fff;
+  border-radius: 12px;
+  max-width: 500px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+  border-bottom: 1px solid #eee;
+
+  h3 {
+    margin: 0;
+    color: #222;
+    font-weight: 600;
+  }
+
+  .close-btn {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    color: #666;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+      background: #f5f5f5;
+    }
+  }
+}
+
+.modal-content {
+  padding: 1.5rem;
+}
+
+.modal-loading,
+.modal-error {
+  text-align: center;
+  padding: 2rem;
+  color: #666;
+}
+
+.modal-error {
+  color: #d32f2f;
+}
+
+.customer-details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.customer-avatar {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #0078d4, #005fa3);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.customer-info-detailed {
+  width: 100%;
+
+  h4 {
+    margin: 0 0 1.5rem 0;
+    font-size: 1.3rem;
+    color: #222;
+  }
+}
+
+.detail-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #f0f0f0;
+
+  .label {
+    font-weight: 500;
+    color: #555;
+  }
+
+  .value {
+    color: #333;
+    word-break: break-word;
+    text-align: right;
+    max-width: 60%;
+  }
+}
+
+.customer-id {
+  font-family: monospace;
+  font-size: 0.8rem;
+  color: #999;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #eee;
+  text-align: center;
+}
+
+// Responsive modal
+@media (max-width: 768px) {
+  .customer-modal {
+    width: 95%;
+    margin: 1rem;
+  }
+
+  .detail-row {
+    flex-direction: column;
+    text-align: left;
+
+    .value {
+      text-align: left;
+      max-width: 100%;
+      margin-top: 0.25rem;
+    }
+  }
 }

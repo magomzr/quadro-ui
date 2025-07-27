@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { OrdersService } from '../../services/orders/orders.service';
+import { CustomersService } from '../../services/customers/customers.service';
 import { Order, OrderFilters } from '../../interfaces/order.interface';
+import { Customer } from '../../interfaces/customer.interface';
 
 @Component({
   selector: 'app-orders',
@@ -25,7 +27,16 @@ export class OrdersComponent implements OnInit {
   dateFromFilter = '';
   dateToFilter = '';
 
-  constructor(private readonly ordersService: OrdersService) {}
+  // Customer modal
+  showCustomerModal = false;
+  selectedCustomer: Customer | null = null;
+  loadingCustomer = false;
+  customerError = '';
+
+  constructor(
+    private readonly ordersService: OrdersService,
+    private readonly customersService: CustomersService
+  ) {}
 
   ngOnInit() {
     this.loadOrders();
@@ -95,5 +106,50 @@ export class OrdersComponent implements OnInit {
           this.error = 'Error updating status';
         },
       });
+  }
+
+  // Nuevos métodos para el modal de cliente
+  viewCustomer(order: Order) {
+    if (!order.customerId) {
+      this.customerError = 'Esta orden no tiene un cliente registrado';
+      this.selectedCustomer = null;
+      this.showCustomerModal = true;
+      return;
+    }
+
+    const tenantId = localStorage.getItem('tenantId')!;
+    this.loadingCustomer = true;
+    this.customerError = '';
+    this.showCustomerModal = true;
+
+    this.customersService
+      .getCustomerById(tenantId, order.customerId)
+      .subscribe({
+        next: (customer) => {
+          this.selectedCustomer = customer;
+          this.loadingCustomer = false;
+        },
+        error: (err) => {
+          this.customerError = 'Error cargando información del cliente';
+          this.loadingCustomer = false;
+        },
+      });
+  }
+
+  closeCustomerModal() {
+    this.showCustomerModal = false;
+    this.selectedCustomer = null;
+    this.loadingCustomer = false;
+    this.customerError = '';
+  }
+
+  formatDate(dateString: string): string {
+    return new Date(dateString).toLocaleDateString('es-CO', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+    });
   }
 }

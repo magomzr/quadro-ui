@@ -16,6 +16,10 @@
       {
         "label": "Orders",
         "link": "/orders"
+      },
+      {
+        "label": "Customers",
+        "link": "/customers"
       }
     ]
   },

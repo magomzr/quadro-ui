@@ -61,7 +61,18 @@
           <td class="order-id">{{ order.id.substring(0, 8) }}...</td>
           <td>
             <div class="customer-info">
-              <div class="customer-name">{{ order.customerName }}</div>
+              <div class="customer-name">
+                {{ order.customerName }}
+                @if (order.customerId) {
+                <button
+                  class="customer-link"
+                  (click)="viewCustomer(order)"
+                  title="Ver detalles del cliente"
+                >
+                  👤
+                </button>
+                }
+              </div>
               <div class="customer-email">{{ order.customerEmail }}</div>
             </div>
           </td>
@@ -122,3 +133,66 @@
   <div class="no-orders">No hay órdenes para mostrar</div>
   }
 </div>
+
+<!-- Modal de Customer -->
+@if (showCustomerModal) {
+<div class="modal-overlay" (click)="closeCustomerModal()">
+  <div class="customer-modal" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h3>Información del Cliente</h3>
+      <button class="close-btn" (click)="closeCustomerModal()">✕</button>
+    </div>
+
+    <div class="modal-content">
+      @if (loadingCustomer) {
+      <div class="modal-loading">Cargando información del cliente...</div>
+      } @else if (customerError) {
+      <div class="modal-error">{{ customerError }}</div>
+      } @else if (selectedCustomer) {
+      <div class="customer-details">
+        <div class="customer-avatar">
+          {{ selectedCustomer.name.charAt(0).toUpperCase() }}
+        </div>
+
+        <div class="customer-info-detailed">
+          <h4>{{ selectedCustomer.name }}</h4>
+
+          <div class="detail-row">
+            <span class="label">Email:</span>
+            <span class="value">{{ selectedCustomer.email }}</span>
+          </div>
+
+          <div class="detail-row">
+            <span class="label">Teléfono:</span>
+            <span class="value">{{ selectedCustomer.phone }}</span>
+          </div>
+
+          <div class="detail-row">
+            <span class="label">Dirección:</span>
+            <span class="value">{{ selectedCustomer.address }}</span>
+          </div>
+
+          <div class="detail-row">
+            <span class="label">Cliente desde:</span>
+            <span class="value">{{
+              formatDate(selectedCustomer.createdAt)
+            }}</span>
+          </div>
+
+          @if (selectedCustomer.updatedAt !== selectedCustomer.createdAt) {
+          <div class="detail-row">
+            <span class="label">Última actualización:</span>
+            <span class="value">{{
+              formatDate(selectedCustomer.updatedAt)
+            }}</span>
+          </div>
+          }
+
+          <div class="customer-id">ID: {{ selectedCustomer.id }}</div>
+        </div>
+      </div>
+      }
+    </div>
+  </div>
+</div>
+}
