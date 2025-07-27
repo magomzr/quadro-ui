@@ -1,0 +1,124 @@
+<div class="orders-container">
+  <div class="orders-header">
+    <h2>Gestión de Órdenes</h2>
+    <div class="orders-stats">
+      <span class="stat">Total: {{ totalItems }} órdenes</span>
+    </div>
+  </div>
+
+  <!-- Filtros -->
+  <div class="filters">
+    <div class="filter-group">
+      <label>Estado:</label>
+      <select [(ngModel)]="statusFilter" (change)="onFilterChange()">
+        <option value="">Todos</option>
+        <option value="pending">Pendiente</option>
+        <option value="paid">Pagado</option>
+        <option value="cancelled">Cancelado</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <label>Desde:</label>
+      <input
+        type="date"
+        [(ngModel)]="dateFromFilter"
+        (change)="onFilterChange()"
+      />
+    </div>
+    <div class="filter-group">
+      <label>Hasta:</label>
+      <input
+        type="date"
+        [(ngModel)]="dateToFilter"
+        (change)="onFilterChange()"
+      />
+    </div>
+  </div>
+
+  @if (loading) {
+  <div class="loading">Cargando órdenes...</div>
+  } @if (error) {
+  <div class="error-message">{{ error }}</div>
+  } @if (orders.length > 0) {
+  <!-- Tabla de órdenes -->
+  <div class="orders-table-container">
+    <table class="orders-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Cliente</th>
+          <th>Estado</th>
+          <th>Total</th>
+          <th>Descuento</th>
+          <th>Items</th>
+          <th>Fecha</th>
+          <th>Cambiar Estado</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (order of orders; track order.id) {
+        <tr>
+          <td class="order-id">{{ order.id.substring(0, 8) }}...</td>
+          <td>
+            <div class="customer-info">
+              <div class="customer-name">{{ order.customerName }}</div>
+              <div class="customer-email">{{ order.customerEmail }}</div>
+            </div>
+          </td>
+          <td>
+            <span class="status-badge" [class]="getStatusClass(order.status)">
+              {{ order.status }}
+            </span>
+          </td>
+          <td class="order-total">${{ order.total }}</td>
+          <td class="order-discount">
+            @if (order.discount) {
+            <div class="discount-info">
+              <span class="discount-code">{{ order.discount.code }}</span>
+              <span class="discount-amount">-${{ order.discountAmount }}</span>
+            </div>
+            } @else {
+            <span class="no-discount">Sin descuento</span>
+            }
+          </td>
+          <td class="items-count">{{ order._count.orderItems }}</td>
+          <td class="order-date">{{ order.createdAt | date : "short" }}</td>
+          <td class="actions">
+            <select
+              class="status-select"
+              [value]="order.status"
+              (change)="updateStatus(order, $any($event.target).value)"
+            >
+              <option value="pending">Pendiente</option>
+              <option value="paid">Pagado</option>
+              <option value="cancelled">Cancelado</option>
+            </select>
+          </td>
+        </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Paginación -->
+  <div class="pagination">
+    <button
+      [disabled]="currentPage === 1"
+      (click)="changePage(currentPage - 1)"
+    >
+      Anterior
+    </button>
+    <span class="page-info">
+      Página {{ currentPage }} de {{ totalPages }}
+    </span>
+    <button
+      [disabled]="currentPage === totalPages"
+      (click)="changePage(currentPage + 1)"
+    >
+      Siguiente
+    </button>
+  </div>
+  } @else if (!loading) {
+  <div class="no-orders">No hay órdenes para mostrar</div>
+  }
+</div>

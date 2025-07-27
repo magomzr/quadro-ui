@@ -12,6 +12,10 @@
       {
         "label": "Settings",
         "link": "/settings"
+      },
+      {
+        "label": "Orders",
+        "link": "/orders"
       }
     ]
   },

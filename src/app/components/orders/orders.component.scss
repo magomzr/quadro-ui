@@ -1,0 +1,227 @@
+.orders-container {
+  padding: 1.5rem;
+  background: #f6f8fa;
+  min-height: 80vh;
+}
+
+.orders-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+
+  h2 {
+    margin: 0;
+    color: #222;
+    font-weight: 600;
+  }
+}
+
+.orders-stats {
+  .stat {
+    background: #0078d4;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+}
+
+.filters {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  padding: 1rem;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  label {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #555;
+  }
+
+  select,
+  input {
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 0.9rem;
+
+    &:focus {
+      border-color: #0078d4;
+      outline: none;
+    }
+  }
+}
+
+.orders-table-container {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  overflow-x: auto;
+}
+
+.orders-table {
+  width: 100%;
+  border-collapse: collapse;
+
+  th,
+  td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+  }
+
+  th {
+    background: #f8f9fa;
+    font-weight: 600;
+    color: #555;
+    font-size: 0.9rem;
+  }
+
+  tbody tr:hover {
+    background: #f8f9fa;
+  }
+}
+
+.order-id {
+  font-family: monospace;
+  font-size: 0.85rem;
+  color: #666;
+}
+
+.customer-info {
+  .customer-name {
+    font-weight: 500;
+    color: #222;
+  }
+
+  .customer-email {
+    font-size: 0.85rem;
+    color: #666;
+  }
+}
+
+.status-badge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  text-transform: uppercase;
+
+  &.status-paid {
+    background: #e8f5e8;
+    color: #2d6a2d;
+  }
+
+  &.status-pending {
+    background: #fff3cd;
+    color: #856404;
+  }
+
+  &.status-cancelled {
+    background: #f8d7da;
+    color: #721c24;
+  }
+}
+
+.order-total {
+  font-weight: 600;
+  color: #0078d4;
+}
+
+.discount-info {
+  .discount-code {
+    display: block;
+    font-weight: 500;
+    color: #28a745;
+    font-size: 0.85rem;
+  }
+
+  .discount-amount {
+    font-size: 0.8rem;
+    color: #28a745;
+  }
+}
+
+.no-discount {
+  color: #999;
+  font-size: 0.85rem;
+}
+
+.items-count {
+  text-align: center;
+  font-weight: 500;
+}
+
+.order-date {
+  font-size: 0.85rem;
+  color: #666;
+}
+
+.actions {
+  .status-select {
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    background: #fff;
+    cursor: pointer;
+
+    &:focus {
+      border-color: #0078d4;
+      outline: none;
+    }
+  }
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 2rem;
+
+  button {
+    padding: 0.5rem 1rem;
+    background: #0078d4;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+
+    &:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
+  }
+
+  .page-info {
+    font-size: 0.9rem;
+    color: #666;
+  }
+}
+
+.loading,
+.no-orders,
+.error-message {
+  text-align: center;
+  padding: 2rem;
+  font-size: 1.1rem;
+  color: #666;
+}
+
+.error-message {
+  color: #d32f2f;
+  background: #ffebee;
+  border-radius: 8px;
+}
