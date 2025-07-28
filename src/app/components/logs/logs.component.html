@@ -1,15 +1,15 @@
 <div class="logs-wrapper">
-  <div class="logs-title">Historial de Logs</div>
+  <div class="logs-title">{{ "title" | label : "logs" }}</div>
   @if (logs$ | async; as logs) { @if (logs.length > 0) {
   <table>
     <thead>
       <tr>
-        <th>ID</th>
-        <th>Acción</th>
-        <th>Recurso</th>
-        <th>Fecha</th>
-        <th>Usuario</th>
-        <th>Email</th>
+        <th>{{ "id" | label : "logs" }}</th>
+        <th>{{ "action" | label : "logs" }}</th>
+        <th>{{ "resource" | label : "logs" }}</th>
+        <th>{{ "date" | label : "logs" }}</th>
+        <th>{{ "user" | label : "logs" }}</th>
+        <th>{{ "email" | label : "logs" }}</th>
       </tr>
     </thead>
     <tbody>
@@ -26,6 +26,6 @@
     </tbody>
   </table>
   } @else {
-  <p>No logs found.</p>
+  <p>{{ "noLogs" | label : "logs" }}</p>
   } }
 </div>

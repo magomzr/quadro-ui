@@ -2,8 +2,10 @@
   <!-- Sidebar con categorías -->
   <aside class="categories-sidebar">
     <div class="sidebar-header">
-      <h3>Categorías</h3>
-      <button class="btn-add" (click)="openCategoryModal()">+ Nueva</button>
+      <h3>{{ "categories" | label : "catalog" }}</h3>
+      <button class="btn-add" (click)="openCategoryModal()">
+        {{ "newCategory" | label : "catalog" }}
+      </button>
     </div>
     <div class="categories-list">
       @for (category of categories; track category.id) {
@@ -32,7 +34,7 @@
         <p>{{ selectedCategory.description }}</p>
       </div>
       <button class="btn-add" (click)="openProductModal()">
-        + Nuevo Producto
+        {{ "newProduct" | label : "catalog" }}
       </button>
     </div>
 
@@ -44,7 +46,7 @@
           [(ngModel)]="showPublishedOnly"
           (change)="onFilterChange()"
         />
-        Solo publicados
+        {{ "onlyPublished" | label : "catalog" }}
       </label>
       <label>
         <input
@@ -52,11 +54,11 @@
           [(ngModel)]="showLowStockOnly"
           (change)="onFilterChange()"
         />
-        Stock bajo
+        {{ "lowStock" | label : "catalog" }}
       </label>
     </div>
     } @if (loading) {
-    <div class="loading">Cargando...</div>
+    <div class="loading">{{ "loading" | label : "common" }}</div>
     } @if (error) {
     <div class="error-message">{{ error }}</div>
     } @if (products.length > 0) {
@@ -111,19 +113,30 @@
 @if (showCategoryModal) {
 <div class="modal-overlay" (click)="closeCategoryModal()">
   <div class="modal" (click)="$event.stopPropagation()">
-    <h3>{{ editingCategory ? "Editar" : "Nueva" }} Categoría</h3>
+    <h3>
+      {{
+        editingCategory
+          ? ("edit" | label : "common")
+          : ("new" | label : "common")
+      }}
+      {{ "categories" | label : "catalog" }}
+    </h3>
     <form [formGroup]="categoryForm" (ngSubmit)="saveCategoryForm()">
       <div class="form-group">
-        <label>Nombre</label>
+        <label>{{ "name" | label : "common" }}</label>
         <input formControlName="name" required />
       </div>
       <div class="form-group">
-        <label>Descripción</label>
+        <label>{{ "description" | label : "common" }}</label>
         <textarea formControlName="description"></textarea>
       </div>
       <div class="modal-actions">
-        <button type="button" (click)="closeCategoryModal()">Cancelar</button>
-        <button type="submit" [disabled]="categoryForm.invalid">Guardar</button>
+        <button type="button" (click)="closeCategoryModal()">
+          {{ "cancel" | label : "common" }}
+        </button>
+        <button type="submit" [disabled]="categoryForm.invalid">
+          {{ "save" | label : "common" }}
+        </button>
       </div>
     </form>
   </div>
@@ -134,42 +147,49 @@
 @if (showProductModal) {
 <div class="modal-overlay" (click)="closeProductModal()">
   <div class="modal" (click)="$event.stopPropagation()">
-    <h3>{{ editingProduct ? "Editar" : "Nuevo" }} Producto</h3>
+    <h3>
+      {{
+        editingProduct
+          ? ("edit" | label : "common")
+          : ("new" | label : "common")
+      }}
+      {{ "product" | label : "catalog" }}
+    </h3>
     <form [formGroup]="productForm" (ngSubmit)="saveProductForm()">
       <div class="form-row">
         <div class="form-group">
-          <label>Nombre</label>
+          <label>{{ "name" | label : "common" }}</label>
           <input formControlName="name" required />
         </div>
         <div class="form-group">
-          <label>SKU</label>
+          <label>{{ "sku" | label : "common" }}</label>
           <input formControlName="sku" required />
         </div>
       </div>
       <div class="form-group">
-        <label>Descripción</label>
+        <label>{{ "description" | label : "common" }}</label>
         <textarea formControlName="description"></textarea>
       </div>
       <div class="form-row">
         <div class="form-group">
-          <label>Precio</label>
+          <label>{{ "price" | label : "catalog" }}</label>
           <input type="number" formControlName="price" step="0.01" required />
         </div>
         <div class="form-group">
-          <label>Stock</label>
+          <label>{{ "stock" | label : "catalog" }}</label>
           <input type="number" formControlName="stock" required />
         </div>
         <div class="form-group">
-          <label>Stock mínimo</label>
+          <label>{{ "minStock" | label : "catalog" }}</label>
           <input type="number" formControlName="minStock" required />
         </div>
       </div>
       <div class="form-group">
-        <label>URL de imagen</label>
+        <label>{{ "imageUrl" | label : "catalog" }}</label>
         <input formControlName="imageUrl" />
       </div>
       <div class="form-group">
-        <label>Categoría</label>
+        <label>{{ "category" | label : "catalog" }}</label>
         <select formControlName="categoryId" required>
           @for (category of categories; track category.id) {
           <option [value]="category.id">{{ category.name }}</option>
@@ -179,12 +199,16 @@
       <div class="form-group">
         <label>
           <input type="checkbox" formControlName="isPublished" />
-          Publicado
+          <label>{{ "published" | label : "catalog" }}</label>
         </label>
       </div>
       <div class="modal-actions">
-        <button type="button" (click)="closeProductModal()">Cancelar</button>
-        <button type="submit" [disabled]="productForm.invalid">Guardar</button>
+        <button type="button" (click)="closeProductModal()">
+          {{ "cancel" | label : "common" }}
+        </button>
+        <button type="submit" [disabled]="productForm.invalid">
+          {{ "save" | label : "common" }}
+        </button>
       </div>
     </form>
   </div>

@@ -2,10 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { LogsService } from '../../services/logs/logs.service';
 import { Observable } from 'rxjs';
 import { AsyncPipe, DatePipe } from '@angular/common';
+import { LabelPipe } from '../../pipes/label.pipe';
 
 @Component({
   selector: 'app-logs',
-  imports: [AsyncPipe, DatePipe],
+  imports: [AsyncPipe, DatePipe, LabelPipe],
   templateUrl: './logs.component.html',
   styleUrl: './logs.component.scss',
 })

@@ -1,8 +1,11 @@
 <div class="customers-container">
   <div class="customers-header">
-    <h2>Gestión de Clientes</h2>
+    <h2>{{ "title" | label : "customers" }}</h2>
     <div class="customers-stats">
-      <span class="stat">Total: {{ totalItems }} clientes</span>
+      <span class="stat"
+        >{{ "total" | label : "common" }}: {{ totalItems }}
+        {{ "customersCount" | label : "customers" }}</span
+      >
     </div>
   </div>
 
@@ -11,7 +14,7 @@
     <div class="search-group">
       <input
         type="text"
-        placeholder="Buscar por nombre, email o teléfono..."
+        [placeholder]="'searchPlaceholder' | label : 'customers'"
         [(ngModel)]="searchTerm"
         (input)="onSearchChange()"
         class="search-input"
@@ -43,23 +46,29 @@
 
       <div class="customer-details">
         <div class="detail-item">
-          <span class="detail-label">Teléfono:</span>
+          <span class="detail-label">{{ "phone" | label : "customers" }}:</span>
           <span class="detail-value">{{ customer.phone }}</span>
         </div>
 
         <div class="detail-item">
-          <span class="detail-label">Dirección:</span>
+          <span class="detail-label"
+            >{{ "address" | label : "customers" }}:</span
+          >
           <span class="detail-value">{{ customer.address }}</span>
         </div>
 
         <div class="detail-item">
-          <span class="detail-label">Registro:</span>
+          <span class="detail-label"
+            >{{ "registration" | label : "customers" }}:</span
+          >
           <span class="detail-value">{{ formatDate(customer.createdAt) }}</span>
         </div>
 
         @if (customer.updatedAt !== customer.createdAt) {
         <div class="detail-item">
-          <span class="detail-label">Actualizado:</span>
+          <span class="detail-label"
+            >{{ "updated" | label : "customers" }}:</span
+          >
           <span class="detail-value">{{ formatDate(customer.updatedAt) }}</span>
         </div>
         }
@@ -76,7 +85,7 @@
       (click)="changePage(currentPage - 1)"
       class="pagination-btn"
     >
-      ← Anterior
+      ← {{ "previous" | label : "common" }}
     </button>
 
     <span class="page-info">
@@ -88,18 +97,18 @@
       (click)="changePage(currentPage + 1)"
       class="pagination-btn"
     >
-      Siguiente →
+      {{ "next" | label : "common" }} →
     </button>
   </div>
   } @else if (!loading) {
   <div class="no-customers">
     @if (searchTerm) {
-    <p>No se encontraron clientes con el término "{{ searchTerm }}"</p>
+    <p>{{ "noResults" | label : "customers" }} "{{ searchTerm }}"</p>
     <button class="clear-search-btn" (click)="clearSearch()">
-      Limpiar búsqueda
+      {{ "clearSearch" | label : "customers" }}
     </button>
     } @else {
-    <p>No hay clientes registrados</p>
+    <p>{{ "noCustomers" | label : "customers" }}</p>
     }
   </div>
   }

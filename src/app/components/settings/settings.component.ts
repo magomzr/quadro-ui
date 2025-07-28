@@ -8,10 +8,11 @@ import { environment } from '../../../environments/environment';
 import { forkJoin, take } from 'rxjs';
 import { ConfigOption } from '../../interfaces/config.interface';
 import { ConfigService } from '../../services/config/config.service';
+import { LabelPipe } from '../../pipes/label.pipe';
 
 @Component({
   selector: 'app-settings',
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule, LabelPipe],
   templateUrl: './settings.component.html',
   styleUrl: './settings.component.scss',
 })

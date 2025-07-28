@@ -1,42 +1,48 @@
 <div class="settings-container">
   @if (form) {
   <form [formGroup]="form" (ngSubmit)="onSubmit()" class="settings-form">
-    <h3>Configuración de empresa</h3>
+    <h3>{{ "title" | label : "settings" }}</h3>
     <div class="form-group">
-      <label for="companyName">Nombre de la empresa</label>
+      <label for="companyName">{{ "companyName" | label : "settings" }}</label>
       <input id="companyName" formControlName="companyName" />
     </div>
     <div class="form-group">
-      <label for="companyLogoUrl">Logo URL</label>
+      <label for="companyLogoUrl">{{
+        "companyLogoUrl" | label : "settings"
+      }}</label>
       <input id="companyLogoUrl" formControlName="companyLogoUrl" />
     </div>
     <div class="form-group">
-      <label for="currency">Moneda</label>
+      <label for="currency">{{ "currency" | label : "settings" }}</label>
       <select id="currency" formControlName="currency">
-        <option value="">Seleccionar moneda</option>
+        <option value="">{{ "selectCurrency" | label : "settings" }}</option>
         @for (currency of currencies; track currency.value) {
         <option [value]="currency.value">{{ currency.name }}</option>
         }
       </select>
     </div>
     <div class="form-group">
-      <label for="locale">Locale</label>
+      <label for="locale">{{ "locale" | label : "settings" }}</label>
       <select id="locale" formControlName="locale">
-        <option value="">Seleccionar locale</option>
+        <option value="">{{ "selectLocale" | label : "settings" }}</option>
         @for (locale of locales; track locale.value) {
         <option [value]="locale.value">{{ locale.name }}</option>
         }
       </select>
     </div>
     <div class="form-group">
-      <label for="timezone">Zona horaria</label>
+      <label for="timezone">{{ "timezone" | label : "settings" }}</label>
       <input id="timezone" formControlName="timezone" />
     </div>
     <div class="form-group">
-      <label for="invoicePrefix">Prefijo de factura</label>
+      <label for="invoicePrefix">{{
+        "invoicePrefix" | label : "settings"
+      }}</label>
       <input id="invoicePrefix" formControlName="invoicePrefix" />
     </div>
-    <button type="submit" [disabled]="form.invalid || loading">Guardar</button>
+    <button type="submit" [disabled]="form.invalid || loading">
+      {{ "save" | label : "common" }}
+    </button>
     @if (error) {
     <div class="error-message">{{ error }}</div>
     }

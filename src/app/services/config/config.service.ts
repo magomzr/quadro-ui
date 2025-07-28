@@ -36,6 +36,7 @@ export class ConfigService {
     return this.configSubject.asObservable();
   }
 
+  // Métodos existentes
   getCurrencies(): ConfigOption[] {
     return this.configSubject.value?.currency || [];
   }
@@ -54,5 +55,48 @@ export class ConfigService {
 
   getLocaleByValue(value: string): ConfigOption | undefined {
     return this.configSubject.value?.locale.find((l) => l.value === value);
+  }
+
+  // Nuevos métodos para labels
+  getLabel(section: string, key: string): string {
+    const labels = this.configSubject.value?.labels;
+    if (labels?.[section as keyof typeof labels]) {
+      return labels[section as keyof typeof labels][key] || key;
+    }
+    return key; // Fallback al key si no encuentra el label
+  }
+
+  getCommonLabel(key: string): string {
+    return this.getLabel('common', key);
+  }
+
+  getCatalogLabel(key: string): string {
+    return this.getLabel('catalog', key);
+  }
+
+  getOrdersLabel(key: string): string {
+    return this.getLabel('orders', key);
+  }
+
+  getCustomersLabel(key: string): string {
+    return this.getLabel('customers', key);
+  }
+
+  getSettingsLabel(key: string): string {
+    return this.getLabel('settings', key);
+  }
+
+  getLoginLabel(key: string): string {
+    return this.getLabel('login', key);
+  }
+
+  getLogsLabel(key: string): string {
+    return this.getLabel('logs', key);
+  }
+
+  // Método helper para obtener múltiples labels de una sección
+  getSectionLabels(section: string): Record<string, string> {
+    const labels = this.configSubject.value?.labels;
+    return labels?.[section as keyof typeof labels] || {};
   }
 }

@@ -5,10 +5,11 @@ import { OrdersService } from '../../services/orders/orders.service';
 import { CustomersService } from '../../services/customers/customers.service';
 import { Order, OrderFilters } from '../../interfaces/order.interface';
 import { Customer } from '../../interfaces/customer.interface';
+import { LabelPipe } from '../../pipes/label.pipe';
 
 @Component({
   selector: 'app-orders',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, LabelPipe],
   templateUrl: './orders.component.html',
   styleUrl: './orders.component.scss',
 })

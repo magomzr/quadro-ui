@@ -10,10 +10,11 @@ import {
 import { CatalogService } from '../../services/catalog/catalog.service';
 import { Category } from '../../interfaces/category.interface';
 import { Product } from '../../interfaces/product.interface';
+import { LabelPipe } from '../../pipes/label.pipe';
 
 @Component({
   selector: 'app-catalog',
-  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, LabelPipe],
   templateUrl: './catalog.component.html',
   styleUrl: './catalog.component.scss',
 })

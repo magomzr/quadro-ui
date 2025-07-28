@@ -1,24 +1,27 @@
 <div class="orders-container">
   <div class="orders-header">
-    <h2>Gestión de Órdenes</h2>
+    <h2>{{ "title" | label : "orders" }}</h2>
     <div class="orders-stats">
-      <span class="stat">Total: {{ totalItems }} órdenes</span>
+      <span class="stat"
+        >{{ "total" | label : "common" }}: {{ totalItems }}
+        {{ "ordersCount" | label : "orders" }}</span
+      >
     </div>
   </div>
 
   <!-- Filtros -->
   <div class="filters">
     <div class="filter-group">
-      <label>Estado:</label>
+      <label>{{ "status" | label : "orders" }}:</label>
       <select [(ngModel)]="statusFilter" (change)="onFilterChange()">
-        <option value="">Todos</option>
-        <option value="pending">Pendiente</option>
-        <option value="paid">Pagado</option>
-        <option value="cancelled">Cancelado</option>
+        <option value="">{{ "all" | label : "orders" }}</option>
+        <option value="pending">{{ "pending" | label : "orders" }}</option>
+        <option value="paid">{{ "paid" | label : "orders" }}</option>
+        <option value="cancelled">{{ "cancelled" | label : "orders" }}</option>
       </select>
     </div>
     <div class="filter-group">
-      <label>Desde:</label>
+      <label>{{ "from" | label : "orders" }}:</label>
       <input
         type="date"
         [(ngModel)]="dateFromFilter"
@@ -26,7 +29,7 @@
       />
     </div>
     <div class="filter-group">
-      <label>Hasta:</label>
+      <label>{{ "to" | label : "orders" }}:</label>
       <input
         type="date"
         [(ngModel)]="dateToFilter"
@@ -45,14 +48,14 @@
     <table class="orders-table">
       <thead>
         <tr>
-          <th>ID</th>
-          <th>Cliente</th>
-          <th>Estado</th>
-          <th>Total</th>
-          <th>Descuento</th>
-          <th>Items</th>
-          <th>Fecha</th>
-          <th>Cambiar Estado</th>
+          <th>{{ "id" | label : "orders" }}</th>
+          <th>{{ "client" | label : "orders" }}</th>
+          <th>{{ "status" | label : "orders" }}</th>
+          <th>{{ "total" | label : "orders" }}</th>
+          <th>{{ "discount" | label : "orders" }}</th>
+          <th>{{ "items" | label : "orders" }}</th>
+          <th>{{ "date" | label : "orders" }}</th>
+          <th>{{ "changeStatus" | label : "orders" }}</th>
         </tr>
       </thead>
       <tbody>
@@ -89,7 +92,9 @@
               <span class="discount-amount">-${{ order.discountAmount }}</span>
             </div>
             } @else {
-            <span class="no-discount">Sin descuento</span>
+            <span class="no-discount">{{
+              "noDiscount" | label : "orders"
+            }}</span>
             }
           </td>
           <td class="items-count">{{ order._count.orderItems }}</td>
@@ -130,7 +135,7 @@
     </button>
   </div>
   } @else if (!loading) {
-  <div class="no-orders">No hay órdenes para mostrar</div>
+  <div class="no-orders">{{ "noOrders" | label : "orders" }}</div>
   }
 </div>
 
@@ -139,13 +144,15 @@
 <div class="modal-overlay" (click)="closeCustomerModal()">
   <div class="customer-modal" (click)="$event.stopPropagation()">
     <div class="modal-header">
-      <h3>Información del Cliente</h3>
+      <h3>{{ "customerInfo" | label : "orders" }}</h3>
       <button class="close-btn" (click)="closeCustomerModal()">✕</button>
     </div>
 
     <div class="modal-content">
       @if (loadingCustomer) {
-      <div class="modal-loading">Cargando información del cliente...</div>
+      <div class="modal-loading">
+        {{ "loadingCustomer" | label : "orders" }}
+      </div>
       } @else if (customerError) {
       <div class="modal-error">{{ customerError }}</div>
       } @else if (selectedCustomer) {
@@ -173,7 +180,7 @@
           </div>
 
           <div class="detail-row">
-            <span class="label">Cliente desde:</span>
+            <span class="label">{{ "customerSince" | label : "orders" }}:</span>
             <span class="value">{{
               formatDate(selectedCustomer.createdAt)
             }}</span>
@@ -181,7 +188,7 @@
 
           @if (selectedCustomer.updatedAt !== selectedCustomer.createdAt) {
           <div class="detail-row">
-            <span class="label">Última actualización:</span>
+            <span class="label">{{ "lastUpdate" | label : "orders" }}:</span>
             <span class="value">{{
               formatDate(selectedCustomer.updatedAt)
             }}</span>

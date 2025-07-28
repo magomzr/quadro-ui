@@ -3,10 +3,11 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { CustomersService } from '../../services/customers/customers.service';
 import { Customer, CustomerFilters } from '../../interfaces/customer.interface';
+import { LabelPipe } from '../../pipes/label.pipe';
 
 @Component({
   selector: 'app-customers',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, LabelPipe],
   templateUrl: './customers.component.html',
   styleUrl: './customers.component.scss',
 })

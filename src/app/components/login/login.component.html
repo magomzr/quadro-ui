@@ -1,8 +1,8 @@
 <div class="login-container">
   <form (ngSubmit)="onSubmit()" #loginForm="ngForm" class="login-form">
-    <h2>Iniciar sesión</h2>
+    <h2>{{ "title" | label : "login" }}</h2>
     <div class="form-group">
-      <label for="email">Email:</label>
+      <label for="email">{{ "email" | label : "login" }}:</label>
       <input
         type="email"
         id="email"
@@ -12,7 +12,7 @@
       />
     </div>
     <div class="form-group">
-      <label for="password">Contraseña:</label>
+      <label for="password">{{ "password" | label : "login" }}:</label>
       <input
         type="password"
         id="password"
@@ -21,7 +21,7 @@
         [(ngModel)]="password"
       />
     </div>
-    <button type="submit">Login</button>
+    <button type="submit">{{ "loginButton" | label : "login" }}</button>
     <p class="login-message">{{ loginMessage }}</p>
   </form>
 </div>

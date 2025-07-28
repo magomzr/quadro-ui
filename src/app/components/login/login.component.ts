@@ -3,10 +3,11 @@ import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth/auth.service';
 import { environment } from '../../../environments/environment';
+import { LabelPipe } from '../../pipes/label.pipe';
 
 @Component({
   selector: 'app-login',
-  imports: [FormsModule],
+  imports: [FormsModule, LabelPipe],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })

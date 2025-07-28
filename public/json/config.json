@@ -1,17 +1,113 @@
 {
+  "labels": {
+    "common": {
+      "save": "Guardar",
+      "cancel": "Cancelar",
+      "edit": "Editar",
+      "delete": "Eliminar",
+      "new": "Nuevo",
+      "loading": "Cargando...",
+      "error": "Error",
+      "search": "Buscar",
+      "name": "Nombre",
+      "description": "Descripción",
+      "actions": "Acciones",
+      "total": "Total",
+      "page": "Página",
+      "of": "de",
+      "previous": "Anterior",
+      "next": "Siguiente",
+      "close": "Cerrar"
+    },
+    "catalog": {
+      "title": "Catálogo",
+      "categories": "Categorías",
+      "newCategory": "+ Nueva",
+      "newProduct": "+ Nuevo Producto",
+      "products": "Productos",
+      "product": "Producto",
+      "price": "Precio",
+      "stock": "Stock",
+      "minStock": "Stock mínimo",
+      "sku": "SKU",
+      "imageUrl": "URL de imagen",
+      "category": "Categoría",
+      "published": "Publicado",
+      "unpublished": "No publicado",
+      "onlyPublished": "Solo publicados",
+      "lowStock": "Stock bajo",
+      "noProducts": "No hay productos en esta categoría"
+    },
+    "orders": {
+      "id": "ID",
+      "total": "Total",
+      "title": "Gestión de Órdenes",
+      "ordersCount": "órdenes",
+      "status": "Estado",
+      "client": "Cliente",
+      "discount": "Descuento",
+      "items": "Items",
+      "date": "Fecha",
+      "changeStatus": "Cambiar Estado",
+      "pending": "Pendiente",
+      "paid": "Pagado",
+      "cancelled": "Cancelado",
+      "all": "Todos",
+      "from": "Desde",
+      "to": "Hasta",
+      "noOrders": "No hay órdenes para mostrar",
+      "noDiscount": "Sin descuento",
+      "customerInfo": "Información del Cliente",
+      "customerSince": "Cliente desde",
+      "lastUpdate": "Última actualización",
+      "loadingCustomer": "Cargando información del cliente...",
+      "noCustomerRegistered": "Esta orden no tiene un cliente registrado"
+    },
+    "customers": {
+      "title": "Gestión de Clientes",
+      "customersCount": "clientes",
+      "searchPlaceholder": "Buscar por nombre, email o teléfono...",
+      "phone": "Teléfono",
+      "address": "Dirección",
+      "registration": "Registro",
+      "updated": "Actualizado",
+      "noCustomers": "No hay clientes registrados",
+      "noResults": "No se encontraron clientes con el término",
+      "clearSearch": "Limpiar búsqueda"
+    },
+    "settings": {
+      "title": "Configuración de empresa",
+      "companyName": "Nombre de la empresa",
+      "companyLogoUrl": "Logo URL",
+      "currency": "Moneda",
+      "selectCurrency": "Seleccionar moneda",
+      "locale": "Locale",
+      "selectLocale": "Seleccionar locale",
+      "timezone": "Zona horaria",
+      "invoicePrefix": "Prefijo de factura"
+    },
+    "login": {
+      "title": "Iniciar sesión",
+      "email": "Email",
+      "password": "Contraseña",
+      "loginButton": "Login"
+    },
+    "logs": {
+      "title": "Historial de Logs",
+      "id": "ID",
+      "action": "Acción",
+      "resource": "Recurso",
+      "user": "Usuario",
+      "date": "Fecha",
+      "email": "Email",
+      "noLogs": "No logs found."
+    }
+  },
   "navbar": {
     "items": [
       {
         "label": "Catalog",
         "link": "/catalog"
-      },
-      {
-        "label": "Logs",
-        "link": "/logs"
-      },
-      {
-        "label": "Settings",
-        "link": "/settings"
       },
       {
         "label": "Orders",
@@ -20,6 +116,14 @@
       {
         "label": "Customers",
         "link": "/customers"
+      },
+      {
+        "label": "Logs",
+        "link": "/logs"
+      },
+      {
+        "label": "Settings",
+        "link": "/settings"
       }
     ]
   },
